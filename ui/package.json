@@ -1,0 +1,17 @@
+{
+  "name": "abr-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/index.js",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github/ArchersDeLaBretagneRomantique"
+  },
+  "author": "Benoit TRAVERS <benoit.travers.fr@gmail.com>",
+  "dependencies": {},
+  "devDependencies": {}
+}
