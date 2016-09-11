@@ -35,18 +35,22 @@ public class AuthenticationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        Optional<String> token = Arrays.asList(((HttpServletRequest) servletRequest).getCookies())
-                .stream()
-                .filter(c -> c.getName().equals(cookie))
-                .map(Cookie::getName)
-                .findFirst();
+        Cookie[] cookies = ((HttpServletRequest) servletRequest).getCookies();
 
         Authentication authentication = null;
 
-        if (token.isPresent() && !jwtUtil.isExpired(token.get())) {
-            Optional<User> user = userRepository.findByUsername(jwtUtil.getUsername(token.get()));
-            if (user.isPresent()) {
-                authentication = new AuthenticationImpl(user.get());
+        if (cookies != null) {
+            Optional<String> token = Arrays.asList(cookies)
+                    .stream()
+                    .filter(c -> c.getName().equals(cookie))
+                    .map(Cookie::getName)
+                    .findFirst();
+
+            if (token.isPresent() && !jwtUtil.isExpired(token.get())) {
+                Optional<User> user = userRepository.findByUsername(jwtUtil.getUsername(token.get()));
+                if (user.isPresent()) {
+                    authentication = new AuthenticationImpl(user.get());
+                }
             }
         }
 

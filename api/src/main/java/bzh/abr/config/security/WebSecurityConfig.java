@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -41,10 +42,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(new Http401AuthenticationEntryPoint("Unauthorized")).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .formLogin().permitAll().loginProcessingUrl("/api/login").usernameParameter("username").passwordParameter("password").successHandler(authenticationSuccessHandler).and()
-                .logout().permitAll().logoutUrl("/api/logout").deleteCookies(cookie).logoutSuccessHandler(logoutSuccessHandler);
+                .exceptionHandling()
+                    .authenticationEntryPoint(new Http401AuthenticationEntryPoint("Unauthorized"))
+                    .and()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                .formLogin().permitAll()
+                    .loginProcessingUrl("/api/login")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .successHandler(authenticationSuccessHandler)
+                    .and()
+                .logout().permitAll()
+                    .logoutUrl("/api/logout")
+                    .deleteCookies(cookie)
+                    .logoutSuccessHandler(logoutSuccessHandler)
+                    .and()
+                .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/api/users").permitAll()
+                    .antMatchers(HttpMethod.GET, "/api/articles").permitAll()
+                    .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
