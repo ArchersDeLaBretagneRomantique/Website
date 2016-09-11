@@ -11,8 +11,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @EqualsAndHashCode
 public class Article implements Serializable {
 

@@ -14,3 +14,8 @@ logging:
     root: WARN
     bzh:
       abr: DEBUG
+
+jwt:
+  cookie: Authorization
+  secret: cinquiemeDeCouv'key
+  expiration: 43200000

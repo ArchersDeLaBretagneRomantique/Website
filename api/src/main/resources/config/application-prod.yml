@@ -10,3 +10,8 @@ spring:
 logging:
   level:
     root: ERROR
+
+jwt:
+  cookie: Authorization
+  secret: cinquiemeDeCouv'key
+  expiration: 43200000
