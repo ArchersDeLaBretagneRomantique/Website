@@ -1,7 +1,9 @@
 package bzh.abr.user.model;
 
-public enum Role {
+public class Role {
 
-    ADMIN, USER
+    public static final String ADMIN = "ADMIN";
+
+    public static final String USER = "USER";
 
 }

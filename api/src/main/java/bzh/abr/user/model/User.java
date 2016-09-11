@@ -32,7 +32,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    private Role role;
+    private String role;
 
     @Column(nullable = false)
     private boolean enabled;
@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority(role.toString()));
+        return Arrays.asList(new SimpleGrantedAuthority(role));
     }
 
     @Override
