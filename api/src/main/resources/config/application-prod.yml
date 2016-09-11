@@ -13,5 +13,5 @@ logging:
 
 jwt:
   cookie: Authorization
-  secret: cinquiemeDeCouv'key
+  secret: ArchersDeLaBretagneRomantique!
   expiration: 43200000
