@@ -1,6 +1,6 @@
 FROM java:8-jre
 
-VOLUME /tmp
+VOLUME ["/tmp", "/photos"]
 
 COPY abr-api.jar app.jar
 

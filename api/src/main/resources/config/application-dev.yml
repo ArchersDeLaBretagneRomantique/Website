@@ -24,5 +24,5 @@ jwt:
   secret: ArchersDeLaBretagneRomantique!
   expiration: 43200000
 
-photo:
-  path: photo/
+photos:
+  path: photos/

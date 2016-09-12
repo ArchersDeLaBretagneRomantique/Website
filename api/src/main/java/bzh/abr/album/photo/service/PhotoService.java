@@ -24,7 +24,7 @@ public class PhotoService {
 
     private static final Logger logger = LoggerFactory.getLogger(PhotoService.class);
 
-    @Value("${photo.path}")
+    @Value("${photos.path}")
     private String path;
 
     @Autowired
