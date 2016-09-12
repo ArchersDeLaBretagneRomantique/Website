@@ -8,6 +8,8 @@ spring:
     password: postgres
 
 logging:
+  pattern:
+    level: ip:%X{ip} %5p
   level:
     root: ERROR
 
@@ -15,3 +17,6 @@ jwt:
   cookie: Authorization
   secret: ArchersDeLaBretagneRomantique!
   expiration: 43200000
+
+photo:
+  path: /photo/

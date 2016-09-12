@@ -8,10 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +36,21 @@ public class ArticleController {
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public ResponseEntity<Article> addArticle(@RequestBody Article article) {
         return ResponseEntity.status(HttpStatus.CREATED).body(articleService.addArticle(article));
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    @Transactional
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody Article article) {
+        return ResponseEntity.ok(articleService.updateArticle(id, article));
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @Transactional
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    public ResponseEntity<Void> desactivateArticle(@PathVariable Long id) {
+        articleService.desactivateArticle(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

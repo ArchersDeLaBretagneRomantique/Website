@@ -12,6 +12,7 @@ import java.net.InetAddress;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
+
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     @Autowired

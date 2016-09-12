@@ -4,11 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Getter @Setter
@@ -26,5 +24,12 @@ public class Article implements Serializable {
 
     @Column(nullable = false)
     private String content;
+
+    @Column(nullable = false)
+    private boolean activated;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date creationDate;
 
 }

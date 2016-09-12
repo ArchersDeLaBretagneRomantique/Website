@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,7 +21,24 @@ public class ArticleService {
     }
 
     public Article addArticle(Article article) {
+        article.setId(null);
+        article.setActivated(true);
         return articleRepository.save(article);
+    }
+
+    public Article updateArticle(Long id, Article article) {
+        article.setId(id);
+        article.setActivated(true);
+        return articleRepository.save(article);
+    }
+
+    public void desactivateArticle(Long id) {
+        Optional<Article> article = articleRepository.findOne(id);
+
+        if (article.isPresent()) {
+            article.get().setActivated(false);
+            articleRepository.save(article.get());
+        }
     }
 
 }

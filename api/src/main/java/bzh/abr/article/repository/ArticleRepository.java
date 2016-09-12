@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface ArticleRepository extends Repository<Article, Long> {
 
+    Optional<Article> findOne(Long id);
+
     List<Article> findAll();
 
     Article save(Article article);

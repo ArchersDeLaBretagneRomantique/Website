@@ -1,5 +1,6 @@
 package bzh.abr.user.service;
 
+import bzh.abr.user.model.Role;
 import bzh.abr.user.model.User;
 import bzh.abr.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,18 @@ public class UserService implements UserDetailsService {
         }
 
         return user.get();
+    }
+
+    public boolean exists(User user) {
+        return userRepository.findByUsername(user.getUsername()) != null;
+    }
+
+    public void addUser(User user) {
+        user.setId(null);
+        user.setRole(Role.USER);
+        user.setEnabled(false);
+        user.setLocked(false);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 }
