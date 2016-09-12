@@ -1,5 +1,6 @@
 package bzh.abr.article.web;
 
+import bzh.abr.article.exception.ArticleNotFoundException;
 import bzh.abr.article.model.Article;
 import bzh.abr.article.service.ArticleService;
 import bzh.abr.user.model.Role;
@@ -32,22 +33,22 @@ public class ArticleController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @Transactional
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @Transactional
     public ResponseEntity<Article> addArticle(@RequestBody Article article) {
         return ResponseEntity.status(HttpStatus.CREATED).body(articleService.addArticle(article));
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    @Transactional
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @Transactional
     public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody Article article) {
         return ResponseEntity.ok(articleService.updateArticle(id, article));
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    @Transactional
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
+    @Transactional
     public ResponseEntity<Void> desactivateArticle(@PathVariable Long id) {
         articleService.desactivateArticle(id);
         return ResponseEntity.noContent().build();
