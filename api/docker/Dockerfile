@@ -1,8 +1,10 @@
-FROM java:8-jre
+FROM openjdk:8-jre
+
+MAINTAINER Benoit TRAVERS <benoit.travers.fr@gmail.com>
 
 VOLUME ["/tmp", "/photos"]
 
-COPY abr-api.jar app.jar
+COPY target/abr-api.jar app.jar
 
 RUN sh -c 'touch /app.jar'
 
