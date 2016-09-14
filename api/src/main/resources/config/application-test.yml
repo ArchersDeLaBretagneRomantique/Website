@@ -1,0 +1,12 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+jwt:
+  cookie: Authorization
+  secret: ArchersDeLaBretagneRomantique!
+  expiration: 43200000
+
+photos:
+  path: photos/
