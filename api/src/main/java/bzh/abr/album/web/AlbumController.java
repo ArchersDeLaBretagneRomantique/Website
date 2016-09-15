@@ -52,7 +52,7 @@ public class AlbumController {
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     @Transactional
-    public ResponseEntity<Void> desactivateAlbum(@RequestParam Long id) {
+    public ResponseEntity<Void> desactivateAlbum(@PathVariable Long id) {
         albumService.desactivateAlbum(id);
         return ResponseEntity.noContent().build();
     }

@@ -48,4 +48,25 @@ public class ArticleTest {
         Assert.assertTrue(storedArticle.get().isActivated());
     }
 
+    @Test
+    public void shouldDesactivateArticle() {
+        Article article = new Article();
+        article.setTitle("Title");
+        article.setContent("Content");
+        ResponseEntity<Article> postResp = UserEnum.ADMIN.getRestTemplate(serverPort)
+                .postForEntity("http://localhost:" + serverPort + "/api/articles", article, Article.class);
+
+        Assert.assertEquals(HttpStatus.CREATED, postResp.getStatusCode());
+
+        UserEnum.ADMIN.getRestTemplate(serverPort)
+                .delete("http://localhost:" + serverPort + "/api/articles/" + postResp.getBody().getId());
+
+        Optional<Article> storedArticle = articleRepository.findOne(postResp.getBody().getId());
+        Assert.assertTrue(storedArticle.isPresent());
+        Assert.assertEquals(article.getTitle(), storedArticle.get().getTitle());
+        Assert.assertEquals(article.getContent(), storedArticle.get().getContent());
+        Assert.assertNotNull(storedArticle.get().getCreationDate());
+        Assert.assertFalse(storedArticle.get().isActivated());
+    }
+
 }
