@@ -1,5 +1,6 @@
 package bzh.abr.article.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class Article implements Serializable {
     @Column(nullable = false)
     private String content;
 
+    @JsonIgnore
     @Column(nullable = false)
     private boolean activated;
 

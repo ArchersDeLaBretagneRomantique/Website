@@ -1,5 +1,6 @@
 package bzh.abr.util;
 
+import bzh.abr.user.model.Role;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,11 @@ public enum UserEnum {
         public String getPassword() {
             return "password";
         }
+
+        @Override
+        public String getRole() {
+            return Role.ADMIN;
+        }
     },
 
     USER {
@@ -37,6 +43,11 @@ public enum UserEnum {
         public String getPassword() {
             return "pwd";
         }
+
+        @Override
+        public String getRole() {
+            return Role.USER;
+        }
     };
 
     private RestTemplate template;
@@ -44,6 +55,8 @@ public enum UserEnum {
     public abstract String getUsername();
 
     public abstract String getPassword();
+
+    public abstract String getRole();
 
     public RestTemplate getRestTemplate(int serverPort) {
         if (template == null) {

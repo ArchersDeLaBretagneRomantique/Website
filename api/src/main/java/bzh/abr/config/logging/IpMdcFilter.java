@@ -19,7 +19,6 @@ public class IpMdcFilter implements Filter {
         try {
             MDC.put(IP, getIp(request));
             chain.doFilter(request, response);
-
         } finally {
             MDC.remove(IP);
         }

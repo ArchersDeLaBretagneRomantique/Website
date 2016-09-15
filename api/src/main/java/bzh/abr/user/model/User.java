@@ -1,5 +1,6 @@
 package bzh.abr.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,12 +33,15 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String role;
 
+    @JsonIgnore
     @Column(nullable = false)
     private boolean enabled;
 
+    @JsonIgnore
     @Column(nullable = false)
     private boolean locked;
 

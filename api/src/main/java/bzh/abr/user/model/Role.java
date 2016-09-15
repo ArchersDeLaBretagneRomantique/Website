@@ -2,8 +2,8 @@ package bzh.abr.user.model;
 
 public class Role {
 
-    public static final String ADMIN = "ADMIN";
+    public static final String ADMIN = "ROLE_ADMIN";
 
-    public static final String USER = "USER";
+    public static final String USER = "ROLE_USER";
 
 }

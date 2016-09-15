@@ -43,9 +43,10 @@ public class ArticleTest {
         Article article = new Article();
         article.setTitle("Title");
         article.setContent("Content");
-        ResponseEntity<Article> postResp = UserEnum.ADMIN.getRestTemplate(serverPort)
+        ResponseEntity<Article> resp = UserEnum.ADMIN.getRestTemplate(serverPort)
                 .postForEntity("http://localhost:" + serverPort + "/api/articles", article, Article.class);
-        Assert.assertEquals(HttpStatus.CREATED, postResp.getStatusCode());
+
+        Assert.assertEquals(HttpStatus.CREATED, resp.getStatusCode());
     }
 
 }

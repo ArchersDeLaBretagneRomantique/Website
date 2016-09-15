@@ -33,15 +33,15 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean exists(User user) {
-        return userRepository.findByUsername(user.getUsername()) != null;
+        return userRepository.findByUsername(user.getUsername()).isPresent();
     }
 
     public void addUser(User user) {
         user.setId(null);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         user.setEnabled(false);
         user.setLocked(false);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 }

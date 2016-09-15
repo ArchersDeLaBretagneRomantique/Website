@@ -1,6 +1,7 @@
 package bzh.abr.album.model;
 
 import bzh.abr.album.photo.model.Photo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class Album implements Serializable {
     @Column(nullable = false)
     private String title;
 
+    @JsonIgnore
     @Column(nullable = false)
     private boolean activated;
 

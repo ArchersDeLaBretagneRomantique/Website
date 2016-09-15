@@ -35,26 +35,28 @@ public class AuthenticationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        Cookie[] cookies = ((HttpServletRequest) servletRequest).getCookies();
+        if (servletRequest instanceof  HttpServletRequest) {
+            Cookie[] cookies = ((HttpServletRequest) servletRequest).getCookies();
 
-        Authentication authentication = null;
+            Authentication authentication = null;
 
-        if (cookies != null) {
-            Optional<String> token = Arrays.asList(cookies)
-                    .stream()
-                    .filter(c -> c.getName().equals(cookie))
-                    .map(Cookie::getName)
-                    .findFirst();
+            if (cookies != null) {
+                Optional<String> token = Arrays.asList(cookies)
+                        .stream()
+                        .filter(c -> c.getName().equals(cookie))
+                        .map(Cookie::getValue)
+                        .findFirst();
 
-            if (token.isPresent() && !jwtUtil.isExpired(token.get())) {
-                Optional<User> user = userRepository.findByUsername(jwtUtil.getUsername(token.get()));
-                if (user.isPresent()) {
-                    authentication = new AuthenticationImpl(user.get());
+                if (token.isPresent() && !jwtUtil.isExpired(token.get())) {
+                    Optional<User> user = userRepository.findByUsername(jwtUtil.getUsername(token.get()));
+                    if (user.isPresent()) {
+                        authentication = new AuthenticationImpl(user.get());
+                    }
                 }
             }
-        }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
         filterChain.doFilter(servletRequest, servletResponse);
         SecurityContextHolder.getContext().setAuthentication(null);
     }

@@ -1,6 +1,5 @@
 package bzh.abr.article.web;
 
-import bzh.abr.article.exception.ArticleNotFoundException;
 import bzh.abr.article.model.Article;
 import bzh.abr.article.service.ArticleService;
 import bzh.abr.user.model.Role;
