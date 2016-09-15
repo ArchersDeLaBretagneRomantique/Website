@@ -15,8 +15,6 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
   && adduser --disabled-login --gecos "" username --uid $USER_ID
 
-COPY settings-docker.xml /usr/share/maven/ref/
-
 VOLUME "$USER_HOME_DIR/.m2"
 
 USER $USER_ID
