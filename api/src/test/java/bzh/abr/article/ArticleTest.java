@@ -3,10 +3,8 @@ package bzh.abr.article;
 import bzh.abr.Application;
 import bzh.abr.article.model.Article;
 import bzh.abr.article.repository.ArticleRepository;
-import bzh.abr.user.repository.UserRepository;
 import bzh.abr.util.UserEnum;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -30,14 +30,6 @@ public class ArticleTest {
     @Autowired
     private ArticleRepository articleRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Before
-    public void setup() {
-
-    }
-
     @Test
     public void shouldAddAnArticle() {
         Article article = new Article();
@@ -47,6 +39,13 @@ public class ArticleTest {
                 .postForEntity("http://localhost:" + serverPort + "/api/articles", article, Article.class);
 
         Assert.assertEquals(HttpStatus.CREATED, resp.getStatusCode());
+
+        Optional<Article> storedArticle = articleRepository.findOne(resp.getBody().getId());
+        Assert.assertTrue(storedArticle.isPresent());
+        Assert.assertEquals(article.getTitle(), storedArticle.get().getTitle());
+        Assert.assertEquals(article.getContent(), storedArticle.get().getContent());
+        Assert.assertNotNull(storedArticle.get().getCreationDate());
+        Assert.assertTrue(storedArticle.get().isActivated());
     }
 
 }

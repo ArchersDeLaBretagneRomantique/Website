@@ -58,4 +58,20 @@ public class UserTest {
         Assert.assertEquals(storedUser.get().isEnabled(), false);
         Assert.assertEquals(storedUser.get().isLocked(), false);
     }
+
+    public void shouldNotAddTwoUsersWithSameUsername() {
+        Map<String, String> user = new HashMap<>();
+        user.put("username", "testusr");
+        user.put("password", "testpwd");
+
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<Void> resp = template.postForEntity("http://localhost:" + serverPort + "/api/users", user, Void.class);
+
+        Assert.assertEquals(HttpStatus.CREATED, resp.getStatusCode());
+
+        user.put("password", "anotherpwd");
+        resp = template.postForEntity("http://localhost:" + serverPort + "/api/users", user, Void.class);
+
+        Assert.assertEquals(HttpStatus.CONFLICT, resp.getStatusCode());
+    }
 }

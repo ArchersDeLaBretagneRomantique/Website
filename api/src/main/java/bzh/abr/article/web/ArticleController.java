@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,14 +35,14 @@ public class ArticleController {
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     @Transactional
-    public ResponseEntity<Article> addArticle(@RequestBody Article article) {
+    public ResponseEntity<Article> addArticle(@Validated @RequestBody Article article) {
         return ResponseEntity.status(HttpStatus.CREATED).body(articleService.addArticle(article));
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     @Transactional
-    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody Article article) {
+    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @Validated @RequestBody Article article) {
         return ResponseEntity.ok(articleService.updateArticle(id, article));
     }
 

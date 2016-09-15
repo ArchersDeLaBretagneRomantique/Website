@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,9 +21,11 @@ public class Article implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty
     @Column(nullable = false)
     private String title;
 
+    @NotEmpty
     @Column(nullable = false)
     private String content;
 

@@ -6,7 +6,7 @@ spring:
 jwt:
   cookie: Authorization
   secret: ArchersDeLaBretagneRomantique!
-  expiration: 43200000
+  expiration: 1800000
 
 photos:
   path: photos/

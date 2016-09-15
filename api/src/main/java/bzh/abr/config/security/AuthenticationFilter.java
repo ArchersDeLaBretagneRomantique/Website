@@ -17,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
@@ -35,28 +36,28 @@ public class AuthenticationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if (servletRequest instanceof  HttpServletRequest) {
-            Cookie[] cookies = ((HttpServletRequest) servletRequest).getCookies();
+        Cookie[] cookies = ((HttpServletRequest) servletRequest).getCookies();
 
-            Authentication authentication = null;
+        Authentication authentication = null;
 
-            if (cookies != null) {
-                Optional<String> token = Arrays.asList(cookies)
-                        .stream()
-                        .filter(c -> c.getName().equals(cookie))
-                        .map(Cookie::getValue)
-                        .findFirst();
+        if (cookies != null) {
+            Optional<String> token = Arrays.asList(cookies)
+                    .stream()
+                    .filter(c -> c.getName().equals(cookie))
+                    .map(Cookie::getValue)
+                    .findFirst();
 
-                if (token.isPresent() && !jwtUtil.isExpired(token.get())) {
-                    Optional<User> user = userRepository.findByUsername(jwtUtil.getUsername(token.get()));
-                    if (user.isPresent()) {
-                        authentication = new AuthenticationImpl(user.get());
-                    }
+            if (token.isPresent() && !jwtUtil.isExpired(token.get())) {
+                Optional<User> user = userRepository.findByUsername(jwtUtil.getUsername(token.get()));
+                if (user.isPresent()) {
+                    authentication = new AuthenticationImpl(user.get());
+                    ((HttpServletResponse) servletResponse).addCookie(new Cookie(cookie, jwtUtil.generateToken(user.get())));
                 }
             }
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         filterChain.doFilter(servletRequest, servletResponse);
         SecurityContextHolder.getContext().setAuthentication(null);
     }

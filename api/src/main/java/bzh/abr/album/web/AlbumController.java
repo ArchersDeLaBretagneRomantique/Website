@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,8 +45,8 @@ public class AlbumController {
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     @Transactional
-    public ResponseEntity<Album> addAlbum(@RequestBody Album album) {
-        return ResponseEntity.ok(albumService.addAlbum(album));
+    public ResponseEntity<Album> addAlbum(@Validated @RequestBody Album album) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(albumService.addAlbum(album));
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
