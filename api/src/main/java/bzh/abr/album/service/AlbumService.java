@@ -17,7 +17,7 @@ public class AlbumService {
     private AlbumRepository albumRepository;
 
     public List<Album> getAlbums() {
-        return albumRepository.findAll();
+        return albumRepository.findByEnabled(true);
     }
 
     public Optional<Album> getAlbum(Long id) {
@@ -27,16 +27,16 @@ public class AlbumService {
     public Album addAlbum(Album album) {
         album.setId(null);
         album.setCreationDate(new Date());
-        album.setActivated(true);
+        album.setEnabled(true);
         return albumRepository.save(album);
     }
 
-    public void desactivateAlbum(Long id) {
+    public void disableAlbum(Long id) {
         Optional<Album> album = albumRepository.findOne(id);
 
         if (!album.isPresent()) throw new AlbumNotFoundException();
 
-        album.get().setActivated(false);
+        album.get().setEnabled(false);
         albumRepository.save(album.get());
     }
 

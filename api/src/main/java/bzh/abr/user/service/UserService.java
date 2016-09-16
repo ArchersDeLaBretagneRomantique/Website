@@ -33,7 +33,6 @@ public class UserService implements UserDetailsService {
 
     public void addUser(User user) {
         if (userRepository.findByUsername(user.getUsername()).isPresent()) throw new UserAlreadyExistsException("User already existe");
-        user.setId(null);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         user.setEnabled(false);

@@ -23,6 +23,6 @@ docker run --rm \
   npm run build
 
 docker build \
-  -f "${UI_PATH}"/docker/Dockerfile \
+  -f "${UI_PATH}/docker/Dockerfile" \
   -t abr/ui \
   "${UI_PATH}"

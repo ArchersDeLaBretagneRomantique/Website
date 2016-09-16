@@ -7,7 +7,7 @@ services:
     depends_on:
       - api
     volumes:
-      - ./photos:/photos
+      - ${PHOTOS_VOLUME}:/photos
     networks:
       - api
 
@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./photos:/srv/photos
+      - ${PHOTOS_VOLUME}:/srv/photos
     networks:
       - api
       - db
@@ -28,7 +28,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: abr
     volumes:
-      - ./db:/var/lib/postgresql/data
+      - ${DB_VOLUME}:/var/lib/postgresql/data
     networks:
       - db
 

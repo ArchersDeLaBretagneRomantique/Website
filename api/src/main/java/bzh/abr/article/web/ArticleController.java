@@ -49,8 +49,8 @@ public class ArticleController {
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     @Transactional
-    public ResponseEntity<Void> desactivateArticle(@PathVariable Long id) {
-        articleService.desactivateArticle(id);
+    public ResponseEntity<Void> disableArticle(@PathVariable Long id) {
+        articleService.disableArticle(id);
         return ResponseEntity.noContent().build();
     }
 

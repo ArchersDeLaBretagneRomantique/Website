@@ -19,12 +19,12 @@ public class ArticleService {
     private ArticleRepository articleRepository;
 
     public List<Article> getArticles() {
-        return articleRepository.findAll();
+        return articleRepository.findByEnabled(true);
     }
 
     public Article addArticle(Article article) {
         article.setId(null);
-        article.setActivated(true);
+        article.setEnabled(true);
         article.setCreationDate(new Date());
         return articleRepository.save(article);
     }
@@ -40,12 +40,12 @@ public class ArticleService {
         return articleRepository.save(a.get());
     }
 
-    public void desactivateArticle(Long id) {
+    public void disableArticle(Long id) {
         Optional<Article> article = articleRepository.findOne(id);
 
         if (!article.isPresent()) throw new ArticleNotFoundException();
 
-        article.get().setActivated(false);
+        article.get().setEnabled(false);
         articleRepository.save(article.get());
     }
 

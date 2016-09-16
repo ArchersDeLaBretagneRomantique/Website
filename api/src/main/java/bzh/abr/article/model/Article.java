@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
+@Entity(name = "articles")
 @Getter @Setter
 @EqualsAndHashCode
 public class Article implements Serializable {
@@ -18,7 +18,8 @@ public class Article implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "articles_id_seq", sequenceName = "articles_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="articles_id_seq")
     private Long id;
 
     @NotEmpty
@@ -31,7 +32,7 @@ public class Article implements Serializable {
 
     @JsonIgnore
     @Column(nullable = false)
-    private boolean activated;
+    private boolean enabled;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)

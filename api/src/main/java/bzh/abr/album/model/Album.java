@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(name = "albums")
 @Getter @Setter
 @EqualsAndHashCode
 public class Album implements Serializable {
@@ -19,7 +19,8 @@ public class Album implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "albums_id_seq", sequenceName = "albums_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="albums_id_seq")
     private Long id;
 
     @Column(nullable = false)
@@ -27,7 +28,7 @@ public class Album implements Serializable {
 
     @JsonIgnore
     @Column(nullable = false)
-    private boolean activated;
+    private boolean enabled;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)

@@ -9,15 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Arrays;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
-@Entity
+@Entity(name = "users")
 @Getter @Setter
 @EqualsAndHashCode
 public class User implements UserDetails {
@@ -25,7 +21,8 @@ public class User implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="users_id_seq")
     private Long id;
 
     @NotEmpty

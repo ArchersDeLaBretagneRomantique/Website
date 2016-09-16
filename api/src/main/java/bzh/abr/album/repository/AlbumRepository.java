@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface AlbumRepository extends Repository<Album, Long> {
 
-    List<Album> findAll();
+    List<Album> findByEnabled(boolean enabled);
 
     Optional<Album> findOne(Long id);
 

@@ -10,7 +10,7 @@ public interface ArticleRepository extends Repository<Article, Long> {
 
     Optional<Article> findOne(Long id);
 
-    List<Article> findAll();
+    List<Article> findByEnabled(boolean enabled);
 
     Article save(Article article);
 

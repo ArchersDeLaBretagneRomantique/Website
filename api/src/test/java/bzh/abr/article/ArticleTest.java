@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
@@ -45,7 +46,7 @@ public class ArticleTest {
         Assert.assertEquals(article.getTitle(), storedArticle.get().getTitle());
         Assert.assertEquals(article.getContent(), storedArticle.get().getContent());
         Assert.assertNotNull(storedArticle.get().getCreationDate());
-        Assert.assertTrue(storedArticle.get().isActivated());
+        Assert.assertTrue(storedArticle.get().isEnabled());
     }
 
     @Test
@@ -67,7 +68,36 @@ public class ArticleTest {
         Assert.assertEquals(article.getTitle(), storedArticle.get().getTitle());
         Assert.assertEquals(article.getContent(), storedArticle.get().getContent());
         Assert.assertNotNull(storedArticle.get().getCreationDate());
-        Assert.assertFalse(storedArticle.get().isActivated());
+        Assert.assertFalse(storedArticle.get().isEnabled());
+    }
+
+    @Test
+    @DirtiesContext
+    public void shouldGetArticles() {
+        Article article = new Article();
+        article.setTitle("Title");
+        article.setContent("Content");
+        ResponseEntity<Article> postResp = UserEnum.ADMIN.getRestTemplate(serverPort)
+                .postForEntity("http://localhost:" + serverPort + "/api/articles", article, Article.class);
+
+        Assert.assertEquals(HttpStatus.CREATED, postResp.getStatusCode());
+
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<Article[]> getResp = template.getForEntity("http://localhost:" + serverPort + "/api/articles", Article[].class);
+
+        Assert.assertEquals(HttpStatus.OK, getResp.getStatusCode());
+
+        Assert.assertEquals(1, getResp.getBody().length);
+        Assert.assertEquals(article.getTitle(), getResp.getBody()[0].getTitle());
+        Assert.assertEquals(article.getContent(), getResp.getBody()[0].getContent());
+        Assert.assertNotNull(getResp.getBody()[0].getCreationDate());
+
+        UserEnum.ADMIN.getRestTemplate(serverPort)
+                .delete("http://localhost:" + serverPort + "/api/articles/" + postResp.getBody().getId());
+
+        getResp = template.getForEntity("http://localhost:" + serverPort + "/api/articles", Article[].class);
+
+        Assert.assertEquals(HttpStatus.NO_CONTENT, getResp.getStatusCode());
     }
 
 }

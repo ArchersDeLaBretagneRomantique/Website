@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "photos")
 @Getter @Setter
 @EqualsAndHashCode
 public class Photo implements Serializable {
@@ -16,7 +16,8 @@ public class Photo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "photos_id_seq", sequenceName = "photos_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="photos_id_seq")
     private Long id;
 
     @Column(nullable = false)

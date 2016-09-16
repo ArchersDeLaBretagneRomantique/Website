@@ -58,5 +58,5 @@ public class UserTest {
         Assert.assertEquals(storedUser.get().isEnabled(), false);
         Assert.assertEquals(storedUser.get().isLocked(), false);
     }
-    
+
 }
