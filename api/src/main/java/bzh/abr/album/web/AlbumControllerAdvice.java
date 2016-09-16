@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class AlbumControllerAdvice {
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No such album")
     @ExceptionHandler(AlbumNotFoundException.class)
     public void handleNotFoundException() {}
 

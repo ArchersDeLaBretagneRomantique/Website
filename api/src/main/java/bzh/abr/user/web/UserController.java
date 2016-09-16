@@ -1,6 +1,5 @@
 package bzh.abr.user.web;
 
-import bzh.abr.user.exception.UserException;
 import bzh.abr.user.model.User;
 import bzh.abr.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     @Transactional
     public ResponseEntity<Void> addUser(@Validated @RequestBody User user) {
-        if (userService.exists(user)) {
-            throw new UserException("User already existe");
-        }
         userService.addUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

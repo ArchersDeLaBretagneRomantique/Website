@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext
 @ActiveProfiles("test")
 public class ArticleTest {
 
@@ -31,6 +30,7 @@ public class ArticleTest {
     private ArticleRepository articleRepository;
 
     @Test
+    @DirtiesContext
     public void shouldAddAnArticle() {
         Article article = new Article();
         article.setTitle("Title");
@@ -49,6 +49,7 @@ public class ArticleTest {
     }
 
     @Test
+    @DirtiesContext
     public void shouldDesactivateArticle() {
         Article article = new Article();
         article.setTitle("Title");

@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext
 @ActiveProfiles("test")
 public class AlbumTest {
 
@@ -31,6 +30,7 @@ public class AlbumTest {
     private AlbumRepository albumRepository;
 
     @Test
+    @DirtiesContext
     public void shouldAddAnAlbum() {
         Album album = new Album();
         album.setTitle("Title");
@@ -48,6 +48,7 @@ public class AlbumTest {
     }
 
     @Test
+    @DirtiesContext
     public void shouldDesactivateAlbum() {
         Album album = new Album();
         album.setTitle("Title");

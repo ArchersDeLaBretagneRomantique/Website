@@ -1,5 +1,6 @@
 package bzh.abr.user.service;
 
+import bzh.abr.user.exception.UserAlreadyExistsException;
 import bzh.abr.user.model.Role;
 import bzh.abr.user.model.User;
 import bzh.abr.user.repository.UserRepository;
@@ -25,18 +26,13 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
 
-        if (!user.isPresent()) {
-            throw new UsernameNotFoundException("No user found with username: " + username);
-        }
+        if (!user.isPresent()) throw new UsernameNotFoundException("No user found with username: " + username);
 
         return user.get();
     }
 
-    public boolean exists(User user) {
-        return userRepository.findByUsername(user.getUsername()).isPresent();
-    }
-
     public void addUser(User user) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) throw new UserAlreadyExistsException("User already existe");
         user.setId(null);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);

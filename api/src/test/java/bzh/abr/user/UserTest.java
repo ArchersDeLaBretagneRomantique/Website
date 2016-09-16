@@ -24,7 +24,6 @@ import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext
 @ActiveProfiles("test")
 public class UserTest {
 
@@ -38,6 +37,7 @@ public class UserTest {
     private PasswordEncoder passwordEncoder;
 
     @Test
+    @DirtiesContext
     public void shouldAddUser() {
         Map<String, String> user = new HashMap<>();
         user.put("username", "testusr");
@@ -58,21 +58,5 @@ public class UserTest {
         Assert.assertEquals(storedUser.get().isEnabled(), false);
         Assert.assertEquals(storedUser.get().isLocked(), false);
     }
-
-    @Test
-    public void shouldNotAddTwoUsersWithSameUsername() {
-        Map<String, String> user = new HashMap<>();
-        user.put("username", "testusr");
-        user.put("password", "testpwd");
-
-        RestTemplate template = new RestTemplate();
-        ResponseEntity<Void> resp = template.postForEntity("http://localhost:" + serverPort + "/api/users", user, Void.class);
-
-        Assert.assertEquals(HttpStatus.CREATED, resp.getStatusCode());
-
-        user.put("password", "anotherpwd");
-        resp = template.postForEntity("http://localhost:" + serverPort + "/api/users", user, Void.class);
-
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, resp.getStatusCode());
-    }
+    
 }

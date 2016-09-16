@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class PhotoControllerAdvice {
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "An error occurred when uploading the file")
     @ExceptionHandler(PhotoUploadException.class)
-    public void handleNotFoundException() {}
+    public void handleException() {}
 
 }
