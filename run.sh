@@ -13,4 +13,4 @@ ${SCRIPTS_DIR}/clean_containers.sh
 ${SCRIPTS_DIR}/build_db.sh
 ${SCRIPTS_DIR}/build_api.sh
 ${SCRIPTS_DIR}/build_ui.sh
-${SCRIPTS_DIR}/setting_up.sh
+${SCRIPTS_DIR}/startup.tart
