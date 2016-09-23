@@ -7,7 +7,8 @@ import { InMemoryDataService }  from './in-memory-data.service'
 
 import { routing } from './app.routing'
 import { AppComponent } from './app.component'
-import { ArticleComponent, ArticleListComponent, ArticlesComponent  } from './articles'
+import { AlbumComponent, AlbumsComponent } from './albums'
+import { ArticleComponent, ArticlesComponent  } from './articles'
 
 @NgModule({
   imports: [
@@ -18,8 +19,9 @@ import { ArticleComponent, ArticleListComponent, ArticlesComponent  } from './ar
   ],
   declarations: [
     AppComponent,
+    AlbumComponent,
+    AlbumsComponent,
     ArticleComponent,
-    ArticleListComponent,
     ArticlesComponent
   ],
   bootstrap: [ AppComponent ]

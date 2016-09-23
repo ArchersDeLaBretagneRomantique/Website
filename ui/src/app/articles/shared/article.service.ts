@@ -7,7 +7,9 @@ import { Article } from './article.model'
 
 @Injectable()
 export class ArticleService {
-    constructor(private http: Http) {}
+    constructor(
+        private http: Http
+    ) {}
 
     private handleError(error: any): Promise<any> {
         return Promise.reject(error.message || error);

@@ -2,15 +2,23 @@ import { InMemoryDbService } from 'angular2-in-memory-web-api'
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+    let albums = [
+      {
+        id: 1,
+        title: 'Albums'
+      }
+    ]
+
     let articles = [
       {
         id: 1,
-        title: "Test",
-        content: "Blablabla..."
+        title: 'Article',
+        content: 'Blablabla...'
       }
     ]
     
     return {
+      albums,
       articles
     }
   }
