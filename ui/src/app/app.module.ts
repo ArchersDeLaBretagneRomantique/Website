@@ -7,23 +7,25 @@ import { InMemoryDataService }  from './in-memory-data.service'
 
 import { routing } from './app.routing'
 import { AppComponent } from './app.component'
-import { AlbumComponent, AlbumsComponent } from './albums'
+import { AlbumComponent, AlbumsComponent, PhotoComponent, PhotosComponent } from './albums'
 import { ArticleComponent, ArticlesComponent  } from './articles'
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
-    routing
-  ],
-  declarations: [
-    AppComponent,
-    AlbumComponent,
-    AlbumsComponent,
-    ArticleComponent,
-    ArticlesComponent
-  ],
-  bootstrap: [ AppComponent ]
+    imports: [
+        BrowserModule,
+        HttpModule,
+        InMemoryWebApiModule.forRoot(InMemoryDataService),
+        routing
+    ],
+    declarations: [
+        AppComponent,
+        AlbumComponent,
+        AlbumsComponent,
+        ArticleComponent,
+        ArticlesComponent,
+        PhotoComponent,
+        PhotosComponent
+    ],
+    bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -3,23 +3,23 @@ import { Component, OnInit } from '@angular/core'
 import { Article, ArticleService } from './shared'
 
 @Component({
-  selector: 'articles',
-  providers: [ArticleService],
-  templateUrl: './articles.component.html'
+    selector: 'articles',
+    providers: [ArticleService],
+    templateUrl: './articles.component.html'
 })
 export class ArticlesComponent implements OnInit {
-  articles: Article[] = []
+    articles: Article[] = []
 
-  constructor(
-    private articleService: ArticleService
-  ) {}
+    constructor(
+        private articleService: ArticleService
+    ) {}
 
-  getArticles(): void {
-    this.articleService.getArticles()
-      .then(articles => this.articles = articles)
-  }
+    getArticles(): void {
+        this.articleService.getArticles()
+            .then(articles => this.articles = articles)
+    }
 
-  ngOnInit(): void {
-    this.getArticles()
-  }
+    ngOnInit(): void {
+        this.getArticles()
+    }
 }

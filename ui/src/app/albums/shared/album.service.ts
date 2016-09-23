@@ -3,10 +3,10 @@ import { Http }    from '@angular/http'
 
 import 'rxjs/add/operator/toPromise';
 
-import { Article } from './article.model'
+import { Album } from './album.model'
 
 @Injectable()
-export class ArticleService {
+export class AlbumService {
     constructor(
         private http: Http
     ) {}
@@ -15,10 +15,15 @@ export class ArticleService {
         return Promise.reject(error.message || error);
     }
 
-    getArticles(): Promise<Article[]> {
-        return this.http.get('/api/articles')
+    getAlbums(): Promise<Album[]> {
+        return this.http.get('/api/albums')
             .toPromise()
-            .then(response => response.json().data as Article[])
+            .then(response => response.json().data as Album[])
             .catch(this.handleError)
+    }
+
+    getAlbum(id: number): Promise<Album> {
+        return this.getAlbums()
+            .then(albums => albums.find(album => album.id === id))
     }
 }
