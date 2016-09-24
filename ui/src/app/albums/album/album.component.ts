@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Album } from '../'
 
 @Component({
-    selector: 'album',
+    selector: 'abr-album',
     templateUrl: './album.component.html'
 })
 export class AlbumComponent {

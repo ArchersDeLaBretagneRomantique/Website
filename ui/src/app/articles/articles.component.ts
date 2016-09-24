@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { Article, ArticleService } from './shared'
 
 @Component({
-    selector: 'articles',
+    selector: 'abr-articles',
     providers: [ArticleService],
     templateUrl: './articles.component.html'
 })

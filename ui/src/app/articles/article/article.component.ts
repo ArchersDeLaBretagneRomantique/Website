@@ -3,8 +3,9 @@ import { Component, Input } from '@angular/core'
 import { Article } from '../shared'
 
 @Component({
-    selector: 'article',
-    templateUrl: './article.component.html'
+    selector: 'abr-article',
+    templateUrl: './article.component.html',
+    styleUrls: ['./article.component.css']
 })
 export class ArticleComponent {
     @Input()

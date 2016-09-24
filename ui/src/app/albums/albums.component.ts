@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { Album, AlbumService } from './shared'
 
 @Component({
-    selector: 'albums',
+    selector: 'abr-albums',
     providers: [AlbumService],
     templateUrl: './albums.component.html'
 })

@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Album, AlbumService } from '../shared'
 
 @Component({
-    selector: 'photos',
+    selector: 'abr-photos',
     providers: [AlbumService],
     templateUrl: './photos.component.html'
 })
