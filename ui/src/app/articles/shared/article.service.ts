@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { Http } from '@angular/http'
 
-import { Remarkable } from 'remarkable'
-
 import 'rxjs/add/operator/toPromise';
 
 import { Article } from './article.model'
+
+const Remarkable = require('remarkable')
 
 @Injectable()
 export class ArticleService {

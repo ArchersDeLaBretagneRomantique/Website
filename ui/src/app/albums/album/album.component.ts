@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core'
+import { Router } from '@angular/router';
 
 import { Album } from '../'
 
@@ -9,4 +10,12 @@ import { Album } from '../'
 export class AlbumComponent {
     @Input()
     album: Album
+
+    constructor(
+        private router: Router
+    ) {}
+
+    onClick() {
+        this.router.navigate(['/albums', this.album.id])
+    }
 }

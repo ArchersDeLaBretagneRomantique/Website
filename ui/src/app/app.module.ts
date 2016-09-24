@@ -9,6 +9,7 @@ import { routing } from './app.routing'
 import { AppComponent } from './app.component'
 import { AlbumComponent, AlbumsComponent, PhotoComponent, PhotosComponent } from './albums'
 import { ArticleComponent, ArticlesComponent  } from './articles'
+import { NavBarComponent } from './nav-bar'
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { ArticleComponent, ArticlesComponent  } from './articles'
         AlbumsComponent,
         ArticleComponent,
         ArticlesComponent,
+        NavBarComponent,
         PhotoComponent,
         PhotosComponent
     ],
